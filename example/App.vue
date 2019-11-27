@@ -4,7 +4,7 @@
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.modalVisible=true}">View Flowchart</el-button>
     <wfd-vue ref="wfd" :data="keyReplyData" :height="600" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
     <el-dialog title="" :visible.sync="modalVisible" width="60%">
-        <wfd-vue ref="wfd" :data="demoData1" :height="300" isView />
+        <wfd-vue ref="wfd" :data="keyReplyData" :height="300" isView />
     </el-dialog>
   </div>
 </template>
