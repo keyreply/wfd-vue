@@ -42,7 +42,7 @@ export default {
   anchorPointStyle: { radius: 3.5, fill: '#fff', stroke: red, lineAppendWidth: 12, lineWidth: 2 },
   anchorHotsoptStyle: { radius: 12, fill: '#1890FF', fillOpacity: .25 },
   anchorHotsoptActivedStyle: { radius: 14 },
-  anchorPointHoverStyle: { radius: 4, fill: '#1890FF', fillOpacity: 1, stroke: '#1890FF' },
+  anchorPointHoverStyle: { radius: 4, fill: red, fillOpacity: 1, stroke: red },
   nodeControlPointStyle: { radius: 4, fill: '#fff', shadowBlur: 4, shadowColor: '#666' },
   edgeControlPointStyle: { radius: 6, symbol: 'square', lineAppendWidth: 6, fillOpacity: 0, strokeOpacity: 0 },
   nodeSelectedBoxStyle: { stroke: '#C2C2C2' },
