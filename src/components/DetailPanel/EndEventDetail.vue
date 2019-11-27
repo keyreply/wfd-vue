@@ -7,7 +7,7 @@
     </div>
 </template>
 <script>
-  import DefaultDetail from "./DefaultDetail";
+  import DefaultDetail from "./DefaultStartEndDetail";
   export default {
     inject: ['i18n'],
     components: {

@@ -16,11 +16,12 @@
 
         <StartEventDetail v-else-if="model.clazz === 'startKr'" :model="model" :onChange="onChange" :readOnly="readOnly" />
         <EndEventDetail v-else-if="model.clazz === 'endKr'" :model="model" :onChange="onChange" :readOnly="readOnly" />
-        <UserTaskDetail v-if="model.clazz === 'basicStateKr'" :model="model" :onChange="onChange" :readOnly="readOnly" :users="users" :groups="groups" />
+        <BasicStateDetail v-if="model.clazz === 'basicStateKr'" :model="model" :onChange="onChange" :readOnly="readOnly" :users="users" :groups="groups" />
     </div>
 </template>
 <script>
   import UserTaskDetail from "./UserTaskDetail"
+  import BasicStateDetail from "./BasicStateDetail"
   import JavaTaskDetail from "./JavaTaskDetail"
   import ScriptTaskDetail from "./ScriptTaskDetail"
   import ReceiveTaskDetail from "./ReceiveTaskDetail"
@@ -36,6 +37,7 @@
   export default {
     inject: ['i18n'],
     components:{
+      BasicStateDetail,
       UserTaskDetail,
       ScriptTaskDetail,
       JavaTaskDetail,
