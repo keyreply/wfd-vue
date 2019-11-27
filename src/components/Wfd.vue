@@ -60,7 +60,7 @@
       },
       lang: {
         type: String,
-        default: "zh"
+        default: "en"
       },
       data: {
         type: Object,
@@ -167,6 +167,11 @@
       });
     },
     mounted() {
+      const red = '#E4392B';
+      const red2 = '#f19c95';
+      const white = '#FFF';
+      const grey = '#333';
+
       let plugins = [];
       if(!this.isView){
         this.cmdPlugin = new Command();
@@ -189,7 +194,7 @@
         },
         defaultEdge: {
           shape: 'flow-polyline-round',
-        },
+        }
       });
       this.graph.saveXML = (createFile = true) => exportXML(this.graph.save(),this.processModel,createFile);
       if(this.isView)

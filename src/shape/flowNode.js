@@ -1,6 +1,11 @@
 const deepMix = require('@antv/util/lib/deep-mix');
 import editorStyle from "../util/defaultStyle";
 
+const red = '#E4392B';
+const red2 = '#f19c95';
+const white = '#FFF';
+const grey = '#333';
+
 const taskDefaultOptions = {
   icon: null,
   iconStyle: {
@@ -52,25 +57,29 @@ const gatewayDefaultOptions = {
 const startDefaultOptions = {
   icon: null,
   iconStyle: {
-    width: 18,
-    height: 18,
-    left: 6,
-    top: 6,
+    width: 10,
+    height: 10,
+    left: 10,
+    top: 10,
   },
   style:{
     ...editorStyle.nodeStyle,
-    fill: '#FEF7E8',
-    stroke:'#FA8C16',
+    fill: white,
+    stroke: red,
     cursor: 'default',
+    radius: 20,
+    lineWidth: 2
   },
   stateStyles: {
     selected: {
-      fill: '#FCD49A',
+      fill: white,
+      stroke: red2
     },
     hover: {
+      fill: red2,
       cursor: editorStyle.cursor.hoverNode,
     }
-  }
+  },
 };
 
 const endDefaultOptions = {
@@ -122,6 +131,28 @@ const catchDefaultOptions = {
 };
 
 export default function(G6) {
+  // keyreply nodes and configs
+  G6.registerNode('start-node-kr', {
+    shapeType: 'rect',
+    options: {
+      ...deepMix({},startDefaultOptions,{icon: require('../assets/icons/flow/start.png')})
+    },
+    getShapeStyle(cfg) {
+      cfg.size = [170, 50];
+      const width = cfg.size[0];
+      const height = cfg.size[1];
+      const style = {
+        x: 0 - width / 2,
+        y: 0 - height / 2,
+        width,
+        height,
+        ...this.options.style,
+      };
+      return style;
+    }
+  }, 'base-node');
+
+
   G6.registerNode('task-node', {
     shapeType: 'rect',
     options:{

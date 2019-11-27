@@ -47,7 +47,7 @@ export default {
   'parallelGateway': 'Parallel Gateway',
   'inclusiveGateway': 'Inclusive Gateway',
   'task': 'Task',
-  'catch': 'Catching Event',
+  'catch': 'Event',
   'tooltip.undo': 'Undo',
   'tooltip.redo': 'Redo',
   'tooltip.copy': 'Copy',

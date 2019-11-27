@@ -1,6 +1,7 @@
 export function getShapeName(clazz) {
   switch (clazz) {
     case 'start': return 'start-node';
+    case 'startKr': return 'start-node-kr';
     case 'end': return 'end-node';
     case 'gateway': return 'gateway-node';
     case 'exclusiveGateway': return 'exclusive-gateway-node';
