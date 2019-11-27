@@ -2,7 +2,7 @@
   <div id="app">
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">Save as XML</el-button>
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.modalVisible=true}">View Flowchart</el-button>
-    <wfd-vue ref="wfd" :data="demoData" :height="600" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
+    <wfd-vue ref="wfd" :data="keyReplyData" :height="600" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
     <el-dialog title="" :visible.sync="modalVisible" width="60%">
         <wfd-vue ref="wfd" :data="demoData1" :height="300" isView />
     </el-dialog>
@@ -20,8 +20,21 @@ export default {
     return {
       modalVisible:false,
       lang: "en",
+      keyReplyData: {
+        nodes: [
+          { id: 'startNode1', x: 100, y: 100, label: '', clazz: 'startKr' },
+          { id: 'state1', x: 100, y: 200, label: 'ask_location', clazz: 'basicStateKr' },
+          { id: 'state2', x: 300, y: 200, label: 'serve_menu', clazz: 'basicStateKr' },
+          { id: 'endNode', x: 600, y: 320, label: '', clazz: 'endKr' }
+        ],
+        edges: [{
+          source: 'startNode1', target: 'state1', sourceAnchor:0, targetAnchor:2, clazz: 'flow',
+          source: 'state1', target: 'state2', sourceAnchor:0, targetAnchor:1, clazz: 'flow',
+          source: 'state2', target: 'endNode', sourceAnchor:1, targetAnchor:0, clazz: 'flow'
+        }]
+      },
       demoData: {
-        nodes: [{ id: 'startNode1', x: 100, y: 100, label: '', clazz: 'startKr', },
+        nodes: [{ id: 'startNode1', x: 100, y: 100, label: '', clazz: 'startKr' },
           { id: 'startNode2', x: 50, y: 320, label: '', clazz: 'timerStart', },
           { id: 'taskNode1', x: 200, y: 200, label: 'heyehy', clazz: 'userTask',  },
           { id: 'taskNode2', x: 400, y: 200, label: '经理审批', clazz: 'scriptTask',  },

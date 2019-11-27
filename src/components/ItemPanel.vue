@@ -74,7 +74,7 @@
     data() {
       return {
         activeNames: [],
-        basicStateData: "{clazz:'basicState',size:'170*50',label:'"+this.i18n['basicState']+"'}",
+        basicStateData: "{clazz:'basicStateKr',size:'170*50',label:'"+this.i18n['basicState']+"'}",
         scriptTaskData: "{clazz:'scriptTask',size:'80*44',label:'"+this.i18n['scriptTask']+"'}",
         javaTaskData: "{clazz:'javaTask',size:'80*44',label:'"+this.i18n['javaTask']+"'}",
         mailTaskData: "{clazz:'mailTask',size:'80*44',label:'"+this.i18n['mailTask']+"'}",

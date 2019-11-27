@@ -1,6 +1,6 @@
 
 export const red = '#E4392B';
-export const red2 = '#f19c95';
+export const red2 = '#fcebe9';
 export const white = '#FFF';
 export const grey = '#333';
 

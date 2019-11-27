@@ -1,23 +1,25 @@
 const deepMix = require('@antv/util/lib/deep-mix');
-import editorStyle, { red, red2, white } from "../util/defaultStyle";
+import editorStyle, { red, red2, white, grey } from "../util/defaultStyle";
 
 const taskDefaultOptions = {
   icon: null,
   iconStyle: {
-    width: 12,
-    height: 12,
-    left: 2,
-    top: 2,
+    width: 18,
+    height: 18,
+    left: 15,
+    top: 14,
   },
   style:{
     ...editorStyle.nodeStyle,
-    fill: '#E7F7FE',
-    stroke:'#1890FF',
+    fill: white,
+    stroke: grey,
     cursor: 'default',
+    lineWidth: 2,
+    radius: 25
   },
   stateStyles: {
     selected: {
-      fill: '#95D6FB',
+      fill: red2,
     },
     hover: {
       cursor: editorStyle.cursor.hoverNode,
@@ -67,7 +69,7 @@ const startDefaultOptions = {
   },
   stateStyles: {
     selected: {
-      fill: white,
+      fill: red2,
       stroke: red2
     },
     hover: {
@@ -82,20 +84,24 @@ const endDefaultOptions = {
   iconStyle: {
     width: 18,
     height: 18,
-    left: 6,
-    top: 6,
+    left: 20,
+    top: 15,
   },
   style:{
     ...editorStyle.nodeStyle,
-    fill: '#EFF7E8',
-    stroke:'#F5222D',
+    fill: white,
+    stroke: red,
     cursor: 'default',
+    radius: 25,
+    lineWidth: 2
   },
   stateStyles: {
     selected: {
-      fill: '#CFD49A',
+      fill: white,
+      stroke: red2
     },
     hover: {
+      fill: red2,
       cursor: editorStyle.cursor.hoverNode,
     }
   }
@@ -155,6 +161,73 @@ export default function(G6) {
         ...this.options.style,
       };
       return style;
+    },
+    getAnchorPoints() {
+      return [
+        [1, 0.5], // right
+      ]
+    }
+  }, 'base-node');
+
+  G6.registerNode('end-node-kr', {
+    shapeType: 'rect',
+    afterDraw(cfg, group) {
+      group.addShape('text', {
+        attrs: {
+          x: -35,
+          y: 4,
+          fill: '#333',
+          text: 'conversation_end',
+          textBaseline: 'left'
+        }
+      });
+    },
+    options: {
+      ...deepMix({},startDefaultOptions,{icon: require('../assets/icons/flow/end.png')})
+    },
+    getShapeStyle(cfg) {
+      cfg.size = [170, 50];
+      const width = cfg.size[0];
+      const height = cfg.size[1];
+      const style = {
+        x: 0 - width / 2,
+        y: 0 - height / 2,
+        width,
+        height,
+        ...this.options.style,
+      };
+      return style;
+    },
+    getAnchorPoints() {
+      return [
+        [0, 0.5], // left
+      ]
+    }
+  }, 'base-node');
+
+  G6.registerNode('basic-state-kr', {
+    shapeType: 'rect',
+    options: deepMix({},taskDefaultOptions,{
+      icon: require('../assets/icons/flow/task.png')
+    }),
+    getAnchorPoints() {
+      return [
+        [0, 0.5], // left
+        [1, 0.5] // right
+      ]
+    },
+    getShapeStyle(cfg) {
+      cfg.size = [170, 50];
+      const width = cfg.size[0];
+      const height = cfg.size[1];
+      const style = {
+        x: 0 - width / 2,
+        y: 0 - height / 2,
+        width,
+        height,
+        ...this.options.style,
+      };
+      return style;
     }
   }, 'base-node');
 
@@ -165,7 +238,7 @@ export default function(G6) {
       ...taskDefaultOptions
     },
     getShapeStyle(cfg) {
-      cfg.size = [80, 44];
+      cfg.size = [170, 50];
       const width = cfg.size[0];
       const height = cfg.size[1];
       const style = {
