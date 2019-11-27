@@ -19,7 +19,7 @@ export default {
     radius: 4,
     strokeOpacity: .7,
   },
-  edgeStyle: { stroke: '#A3B1BF', strokeOpacity: .92, lineWidth: 1, lineAppendWidth: 8, endArrow: true},
+  edgeStyle: { stroke: '#333', lineWidth: 2, lineAppendWidth: 8, endArrow: true},
   groupBackgroundPadding: [40, 10, 10, 10],
   groupLabelOffsetX: 10,
   groupLabelOffsetY: 10,

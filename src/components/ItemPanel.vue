@@ -3,7 +3,7 @@
         <el-collapse v-model="activeNames" >
             <el-collapse-item :title="i18n['start']" name="1">
                 <img data-item="{clazz:'startKr',size:'170*50',label:''}"
-                     :src="require('../assets/flow/start.svg')" style="width:42px;height:42px" />
+                     :src="require('../assets/icons/flow/start.png')" style="width:20px;height:20px" />
                 <div>{{i18n['startEvent']}}</div>
                 <img data-item="{clazz:'timerStart',size:'30*30',label:''}"
                      :src="require('../assets/flow/timer-start.svg')" style="width:42px;height:42px" />

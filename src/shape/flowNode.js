@@ -57,17 +57,17 @@ const gatewayDefaultOptions = {
 const startDefaultOptions = {
   icon: null,
   iconStyle: {
-    width: 10,
-    height: 10,
-    left: 10,
-    top: 10,
+    width: 18,
+    height: 18,
+    left: 20,
+    top: 15,
   },
   style:{
     ...editorStyle.nodeStyle,
     fill: white,
     stroke: red,
     cursor: 'default',
-    radius: 20,
+    radius: 25,
     lineWidth: 2
   },
   stateStyles: {
@@ -134,6 +134,17 @@ export default function(G6) {
   // keyreply nodes and configs
   G6.registerNode('start-node-kr', {
     shapeType: 'rect',
+    afterDraw(cfg, group) {
+      group.addShape('text', {
+        attrs: {
+          x: -35,
+          y: 4,
+          fill: '#333',
+          text: 'conversation_start',
+          textBaseline: 'left'
+        }
+      });
+    },
     options: {
       ...deepMix({},startDefaultOptions,{icon: require('../assets/icons/flow/start.png')})
     },

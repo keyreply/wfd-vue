@@ -3,7 +3,7 @@
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">Save as XML</el-button>
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.modalVisible=true}">View Flowchart</el-button>
     <wfd-vue ref="wfd" :data="demoData" :height="600" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
-    <el-dialog title="查看流程图" :visible.sync="modalVisible" width="60%">
+    <el-dialog title="" :visible.sync="modalVisible" width="60%">
         <wfd-vue ref="wfd" :data="demoData1" :height="300" isView />
     </el-dialog>
   </div>
@@ -21,7 +21,7 @@ export default {
       modalVisible:false,
       lang: "en",
       demoData: {
-        nodes: [{ id: 'startNode1', x: 100, y: 100, label: 'conversation_start', clazz: 'startKr', },
+        nodes: [{ id: 'startNode1', x: 100, y: 100, label: '', clazz: 'startKr', },
           { id: 'startNode2', x: 50, y: 320, label: '', clazz: 'timerStart', },
           { id: 'taskNode1', x: 200, y: 200, label: 'heyehy', clazz: 'userTask',  },
           { id: 'taskNode2', x: 400, y: 200, label: '经理审批', clazz: 'scriptTask',  },

@@ -193,7 +193,7 @@
             'dragPanelItemAddNode','clickSelected','deleteItem','itemAlign'],
         },
         defaultEdge: {
-          shape: 'flow-polyline-round',
+          shape: 'flow-polyline-round'
         }
       });
       this.graph.saveXML = (createFile = true) => exportXML(this.graph.save(),this.processModel,createFile);
