@@ -1,10 +1,5 @@
 const deepMix = require('@antv/util/lib/deep-mix');
-import editorStyle from "../util/defaultStyle";
-
-const red = '#E4392B';
-const red2 = '#f19c95';
-const white = '#FFF';
-const grey = '#333';
+import editorStyle, { red, red2, white } from "../util/defaultStyle";
 
 const taskDefaultOptions = {
   icon: null,

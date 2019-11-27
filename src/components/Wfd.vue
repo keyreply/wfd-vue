@@ -20,6 +20,7 @@
 <script>
   import G6 from '@antv/g6/src';
   import { getShapeName } from '../util/clazz'
+  import { red } from '../util/defaultStyle'
   import Command from '../plugins/command'
   import Toolbar from '../plugins/toolbar'
   import AddItemPanel from '../plugins/addItemPanel'
@@ -167,11 +168,6 @@
       });
     },
     mounted() {
-      const red = '#E4392B';
-      const red2 = '#f19c95';
-      const white = '#FFF';
-      const grey = '#333';
-
       let plugins = [];
       if(!this.isView){
         this.cmdPlugin = new Command();

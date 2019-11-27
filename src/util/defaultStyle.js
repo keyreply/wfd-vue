@@ -1,3 +1,10 @@
+
+export const red = '#E4392B';
+export const red2 = '#f19c95';
+export const white = '#FFF';
+export const grey = '#333';
+
+
 export default {
   nodeActivedOutterStyle: { lineWidth: 0 },
   groupSelectedOutterStyle: { stroke: '#E0F0FF', lineWidth: 2 },
@@ -32,7 +39,7 @@ export default {
   multiSelectRectStyle: { fill: '#1890FF', fillOpacity: .08, stroke: '#1890FF', opacity: .1 },
   dragNodeHoverToGroupStyle: { stroke: '#1890FF', lineWidth: 2 },
   dragNodeLeaveFromGroupStyle: { stroke: '#BAE7FF', lineWidth: 2 },
-  anchorPointStyle: { radius: 3.5, fill: '#fff', stroke: '#1890FF', lineAppendWidth: 12 },
+  anchorPointStyle: { radius: 3.5, fill: '#fff', stroke: red, lineAppendWidth: 12, lineWidth: 2 },
   anchorHotsoptStyle: { radius: 12, fill: '#1890FF', fillOpacity: .25 },
   anchorHotsoptActivedStyle: { radius: 14 },
   anchorPointHoverStyle: { radius: 4, fill: '#1890FF', fillOpacity: 1, stroke: '#1890FF' },
