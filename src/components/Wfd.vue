@@ -74,6 +74,10 @@
       groups: {
         type: Array,
         default: () => ([])
+      },
+      export: {
+        type: Function,
+        default: () => {}
       }
     },
     data() {
@@ -192,7 +196,9 @@
           shape: 'flow-polyline-round'
         }
       });
-      this.graph.saveXML = (createFile = true) => exportXML(this.graph.save(),this.processModel,createFile);
+      this.graph.saveXML = (createFile = true) => {
+       this.export(this.graph.save());
+      }
       if(this.isView)
         this.graph.setMode('view');
       else

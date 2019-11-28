@@ -2,7 +2,7 @@
   <div id="app">
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">Save as XML</el-button>
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.modalVisible=true}">View Flowchart</el-button>
-    <wfd-vue ref="wfd" :data="keyReplyData" :height="600" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
+    <wfd-vue ref="wfd" :data="keyReplyData" :height="600" :export="exportData" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
     <el-dialog title="" :visible.sync="modalVisible" width="60%">
         <wfd-vue ref="wfd" :data="keyReplyData" :height="300" isView />
     </el-dialog>
@@ -75,6 +75,9 @@ export default {
       },
       candidateUsers: [{id:'1',name:'Tom'},{id:'2',name:'Steven'},{id:'3',name:'Andy'}],
       candidateGroups: [{id:'1',name:'Manager'},{id:'2',name:'Security'},{id:'3',name:'OA'}],
+      exportData: (jsonData) => {
+        console.warn('export data', jsonData);
+      }
     }
   },
   mounted() {
