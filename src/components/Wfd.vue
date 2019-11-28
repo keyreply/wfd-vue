@@ -9,8 +9,6 @@
                    :height="height"
                    :model="selectedModel"
                    :readOnly="mode !== 'edit'"
-                   :users="users"
-                   :groups="groups"
                    :signalDefs="processModel.signalDefs"
                    :messageDefs="processModel.messageDefs"
                    :onChange="(key,val)=>{onItemCfgChange(key,val)}" />
@@ -66,14 +64,6 @@
       data: {
         type: Object,
         default: () => ({nodes:[],edges:[]})
-      },
-      users: {
-        type: Array,
-        default: () => ([])
-      },
-      groups: {
-        type: Array,
-        default: () => ([])
       },
       export: {
         type: Function,

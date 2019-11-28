@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">Save as XML</el-button>
+    <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">Save JSON</el-button>
     <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.modalVisible=true}">View Flowchart</el-button>
     <wfd-vue ref="wfd" :data="keyReplyData" :height="600" :export="exportData" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
     <el-dialog title="" :visible.sync="modalVisible" width="60%">
