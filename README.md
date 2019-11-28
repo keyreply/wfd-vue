@@ -6,9 +6,6 @@
 
 ![image](https://github.com/keyreply/wfd-vue/raw/feature/flow-test/example/snapshots/1.png)
 
-## Online Demo
-https://guozhaolong.github.io/wfd-vue/
-
 ## Usage
 ```
 <template>
