@@ -4,7 +4,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/wfd-vue.svg?style=flat)](https://www.npmjs.org/package/wfd-vue)
 ![](https://img.shields.io/badge/license-MIT-000000.svg)
 
-![image](https://github.com/guozhaolong/wfd-vue/raw/master/example/snapshots/1.jpg)
+![image](https://github.com/keyreply/wfd-vue/raw/feature/flow-test/example/snapshots/1.png)
 
 ## Online Demo
 https://guozhaolong.github.io/wfd-vue/
