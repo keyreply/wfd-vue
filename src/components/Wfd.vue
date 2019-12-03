@@ -1,9 +1,11 @@
 <template>
   <div class="root">
     <ToolbarPanel ref="toolbar" v-if="!isView" />
-    <div style="display: flex">
+    <div style="display: flex; flex-direction: row; justify-content: flex-start;">
       <ItemPanel ref="addItemPanel" v-if="!isView" :height="height"/>
-      <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width':isView?'100%':'70%','border-bottom':isView?0:null}"></div>
+      <div class="canvas-container" :style="{'height':height+'px','width':isView?'100%':'70%','border-bottom':isView?0:null}">
+        <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width': '100%'}"></div>
+      </div>     
       <DetailPanel ref="detailPanel"
                    v-if="!isView"
                    :height="height"
@@ -174,8 +176,8 @@
       this.graph = new G6.Graph({
         plugins: plugins,
         container: this.$refs['canvas'],
-        height: this.height,
-        width: width,
+        height: 4000,
+        width: 4000,
         modes: {
           default: ['drag-canvas', 'clickSelected'],
           view: [ ],
@@ -202,18 +204,24 @@
     }
   };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     .root{
         width: 100%;
         height: 100%;
         background-color: #fff;
         display: block;
     }
-    .canvasPanel {
+    .canvas-container{
         flex: 0 0 auto;
         float: left;
-        width:70%;
         background-color: #fff;
         border-bottom: 1px solid #E9E9E9;
+        width: 100%;
+        overflow: auto;
+    }
+    .canvasPanel {
+        flex: 0 0 auto;
+        width: 4000px !important;
+        height: 4000px !important;
     }
 </style>
