@@ -1,9 +1,9 @@
 <template>
   <div class="root">
-    <ToolbarPanel ref="toolbar" v-if="!isView" />
+    <ToolbarPanel ref="toolbar" />
     <div style="display: flex; flex-direction: row; justify-content: flex-start;">
-      <ItemPanel ref="addItemPanel" v-if="!isView" :height="height"/>
-      <div class="canvas-container" :style="{'height':height+'px','width':isView?'100%':'70%','border-bottom':isView?0:null}">
+      <ItemPanel ref="addItemPanel" :height="height"/>
+      <div class="canvas-container" :style="{'height':height+'px','border-bottom':isView?0:null}">
         <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width': '100%'}"></div>
       </div>     
       <DetailPanel ref="detailPanel"
@@ -53,7 +53,7 @@
       },
       isView: {
         type: Boolean,
-        default: false,
+        default: true,
       },
       mode: {
         type: String,
@@ -198,15 +198,12 @@
       this.graph.saveXML = (createFile = true) => {
        this.export(this.graph.save());
       }
-      if(this.isView)
-        this.graph.setMode('view');
-      else
-        this.graph.setMode(this.mode);
+      this.graph.setMode(this.mode);
       this.graph.data(this.initShape(this.data));
       this.graph.render();
-      if(this.isView && this.data && this.data.nodes){
-        this.graph.fitView(5)
-      }
+      // if(this.isView && this.data && this.data.nodes){
+      //   this.graph.fitView(5)
+      // }
       this.initEvents();
     }
   };
@@ -230,11 +227,9 @@
         display: block;
     }
     .canvas-container{
-        flex: 0 0 auto;
-        float: left;
         background-color: #fff;
         border-bottom: 1px solid #E9E9E9;
-        width: 100%;
+        width: 90%;
         overflow: auto;
     }
     .canvasPanel {
