@@ -269,8 +269,6 @@ export default function(G6) {
           y += 60
         })
       }
-     
-      console.warn(cfg)
     },
     getAnchorPoints() {
       return [

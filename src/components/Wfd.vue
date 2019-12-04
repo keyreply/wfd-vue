@@ -47,6 +47,10 @@
       }
     },
     props: {
+      onNodeClick: {
+        type: Function,
+        default: () => {}
+      },
       isView: {
         type: Boolean,
         default: false,
@@ -124,9 +128,12 @@
         this.graph.on('afteritemselected',(items)=>{
           if(items && items.length > 0) {
             const item = this.graph.findById(items[0]);
-            this.selectedModel = {...item.getModel()};
+            const model = item.getModel();
+            this.selectedModel = {...model};
+            this.onNodeClick(model);
           } else {
             this.selectedModel = this.processModel;
+            this.onNodeClick(null);
           }
         });
         const page = this.$refs['canvas'];

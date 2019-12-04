@@ -28,8 +28,10 @@ export default {
           }, {
             label: 'Help & Support'
           }] },
-          { id: 'state2', x: 200, y: 350, label: 'serve_menu', clazz: 'basicStateKr' },
-          { id: 'endNode', x: 600, y: 350, label: '', clazz: 'endKr' }
+          { id: 'state2', x: 200, y: 350, label: 'serve_menu', clazz: 'basicStateKr', type: 'buttons', buttons: [{
+            label: '-Display Restaurant Menu-'
+          }] },
+          { id: 'endNode', x: 600, y: 350, label: 'End of conversation flow', clazz: 'endKr' }
         ],
         edges: [
           { source: 'startNode1', target: 'state1', sourceAnchor:0, targetAnchor:0, clazz: 'flow' },
