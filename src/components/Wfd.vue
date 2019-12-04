@@ -5,7 +5,7 @@
       <ItemPanel ref="addItemPanel" :height="height"/>
       <div class="canvas-container" :style="{'height':height+'px','border-bottom':isView?0:null}">
         <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width': '100%'}"></div>
-      </div>     
+      </div>
       <DetailPanel ref="detailPanel"
                    v-if="!isView"
                    :height="height"
