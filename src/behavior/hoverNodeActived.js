@@ -15,12 +15,16 @@ export default function(G6){
     },
     onNodeEnter(e){
       const clazz = e.item.getModel().clazz;
-      if(clazz !== 'endEvent' && !this.graph.get('onDragEdge'))
-        this.graph.setItemState(e.item, 'show-anchor', true);
+      if(clazz !== 'endEvent' && !this.graph.get('onDragEdge')){
+        this.graph.setItemState(e.item, clazz == 'startKr' || clazz == 'endKr' ? 
+        'show-anchor-red' : 'show-anchor', true);
+      }
     },
     onNodeLeave(e){
+      const clazz = e.item.getModel().clazz
       if(e.target.type !== 'marker' && !this.graph.get('onDragEdge')) {
-        this.graph.setItemState(e.item, 'show-anchor', false);
+        this.graph.setItemState(e.item, clazz == 'startKr' || clazz == 'endKr' ? 
+        'show-anchor-red' : 'show-anchor', false);
       }
     },
   });

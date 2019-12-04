@@ -205,6 +205,17 @@
   };
 </script>
 <style lang="scss">
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+    html, body{
+      font-family: 'Open Sans', sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 400 !important;
+    }
+    button{
+      font-family: 'Open Sans', sans-serif !important;
+      font-size: 12px !important;
+      font-weight: 600 !important;
+    }
     .root{
         width: 100%;
         height: 100%;

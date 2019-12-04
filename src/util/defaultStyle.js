@@ -3,7 +3,8 @@ export const red = '#E4392B';
 export const red2 = '#fcebe9';
 export const white = '#FFF';
 export const grey = '#333';
-
+export const lightGrey = '#888';
+export const blue = '#339dff';
 
 export default {
   nodeActivedOutterStyle: { lineWidth: 0 },
@@ -26,7 +27,7 @@ export default {
     radius: 4,
     strokeOpacity: .7,
   },
-  edgeStyle: { stroke: '#333', lineWidth: 2, lineAppendWidth: 8, endArrow: true},
+  edgeStyle: { stroke: lightGrey, lineWidth: 2, lineAppendWidth: 8, endArrow: true},
   groupBackgroundPadding: [40, 10, 10, 10],
   groupLabelOffsetX: 10,
   groupLabelOffsetY: 10,

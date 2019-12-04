@@ -1,4 +1,4 @@
-import editorStyle from "../util/defaultStyle";
+import editorStyle, { blue, lightGrey, red } from "../util/defaultStyle";
 import createAnchor from '../item/anchor';
 
 const dashArray = [
@@ -114,10 +114,15 @@ export default function(G6) {
     },
     setState(name, value, item) {
       const group = item.getContainer();
-      if (name === 'show-anchor') {
+      if (name.indexOf('show-anchor') > -1) {
+        const rect = group.getChildByIndex(0);
         if (value) {
+          rect.attr('stroke', blue)
+          rect.attr('lineWidth', 3)
           group.showAnchor(group);
         } else {
+          rect.attr('stroke', name == 'show-anchor-red' ? red : lightGrey)
+          rect.attr('lineWidth', 2)
           group.clearAnchor(group);
         }
       } else if (name === 'selected') {

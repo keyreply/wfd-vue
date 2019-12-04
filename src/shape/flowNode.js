@@ -1,5 +1,5 @@
 const deepMix = require('@antv/util/lib/deep-mix');
-import editorStyle, { red, red2, white, grey } from "../util/defaultStyle";
+import editorStyle, { red, red2, white, grey, lightGrey } from "../util/defaultStyle";
 
 const taskDefaultOptions = {
   icon: null,
@@ -7,15 +7,17 @@ const taskDefaultOptions = {
     width: 18,
     height: 18,
     left: 15,
-    top: 14,
+    top: 14
   },
   style:{
     ...editorStyle.nodeStyle,
     fill: white,
-    stroke: grey,
+    stroke: lightGrey,
     cursor: 'default',
     lineWidth: 2,
-    radius: 25
+    radius: 10,
+    width: 300,
+    height: 200
   },
   stateStyles: {
     selected: {
@@ -23,6 +25,13 @@ const taskDefaultOptions = {
     },
     hover: {
       cursor: editorStyle.cursor.hoverNode,
+    }
+  },
+  labelCfg: {
+    style: {
+      fontFamily: '"Open Sans", sans-serif',
+      fontSize: 14,
+      fontWeight: 600
     }
   }
 };
@@ -64,8 +73,10 @@ const startDefaultOptions = {
     fill: white,
     stroke: red,
     cursor: 'default',
-    radius: 25,
-    lineWidth: 2
+    radius: 10,
+    lineWidth: 2,
+    width: 300,
+    height: 200
   },
   stateStyles: {
     selected: {
@@ -77,6 +88,13 @@ const startDefaultOptions = {
       cursor: editorStyle.cursor.hoverNode,
     }
   },
+  labelCfg: {
+    style: {
+      fontFamily: '"Open Sans", sans-serif',
+      fontSize: 14,
+      fontWeight: 600
+    }
+  }
 };
 
 const endDefaultOptions = {
@@ -142,7 +160,10 @@ export default function(G6) {
           y: 4,
           fill: '#333',
           text: 'conversation_start',
-          textBaseline: 'left'
+          textBaseline: 'left',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 14,
+          fontWeight: 600
         }
       });
     },
@@ -178,7 +199,10 @@ export default function(G6) {
           y: 4,
           fill: '#333',
           text: 'conversation_end',
-          textBaseline: 'left'
+          textBaseline: 'center',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 14,
+          fontWeight: 600
         }
       });
     },
@@ -210,6 +234,9 @@ export default function(G6) {
     options: deepMix({},taskDefaultOptions,{
       icon: require('../assets/icons/flow/task.png')
     }),
+    afterDraw(cfg, group) {
+      console.warn(cfg)
+    },
     getAnchorPoints() {
       return [
         [0, 0.5], // left

@@ -23,7 +23,7 @@ export default {
       keyReplyData: {
         nodes: [
           { id: 'startNode1', x: 200, y: 100, label: '', clazz: 'startKr' },
-          { id: 'state1', x: 500, y: 100, label: 'ask_location', clazz: 'basicStateKr' },
+          { id: 'state1', x: 500, y: 100, label: 'ask_location', clazz: 'basicStateKr', type: 'button' },
           { id: 'state2', x: 200, y: 250, label: 'serve_menu', clazz: 'basicStateKr' },
           { id: 'endNode', x: 500, y: 250, label: '', clazz: 'endKr' }
         ],
@@ -87,7 +87,6 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
