@@ -76,7 +76,7 @@ const startDefaultOptions = {
     radius: 10,
     lineWidth: 2,
     width: 300,
-    height: 200
+    height: 150
   },
   stateStyles: {
     selected: {
@@ -91,8 +91,12 @@ const startDefaultOptions = {
   labelCfg: {
     style: {
       fontFamily: '"Open Sans", sans-serif',
-      fontSize: 14,
-      fontWeight: 600
+      fontSize: 12,
+      fontWeight: 400,
+      x: -65,
+      y: 50,
+      textAlign: 'left',
+      width: 50
     }
   }
 };
@@ -235,6 +239,37 @@ export default function(G6) {
       icon: require('../assets/icons/flow/task.png')
     }),
     afterDraw(cfg, group) {
+      if (cfg.type === 'buttons') {
+        let y = 40;
+        _.forEach(cfg.buttons, (button) => {
+          group.addShape('rect', {
+            attrs: {
+              x: -45,
+              y,
+              fill: white,
+              stroke: grey,
+              lineWidth: 1,
+              height: 50, 
+              width: 220,
+              radius: 10
+            }
+          });
+          group.addShape('text', {
+            attrs: {
+              x: -30,
+              y: y + 30,
+              fill: '#333',
+              text: button.label,
+              textBaseline: 'left',
+              fontFamily: '"Open Sans", sans-serif',
+              fontSize: 12,
+              fontWeight: 400
+            }
+          });
+          y += 60
+        })
+      }
+     
       console.warn(cfg)
     },
     getAnchorPoints() {
