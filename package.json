@@ -1,6 +1,6 @@
 {
   "name": "keyreply-conversation-flow-vue",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "private": false,
   "description": "a conversation designer base on @antv/g6",
   "main": "dist/wfd-vue.umd.min.js",

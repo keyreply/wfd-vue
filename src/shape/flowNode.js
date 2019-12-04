@@ -31,7 +31,9 @@ const taskDefaultOptions = {
     style: {
       fontFamily: '"Open Sans", sans-serif',
       fontSize: 14,
-      fontWeight: 600
+      fontWeight: 600,
+      textAlign: 'left',
+      x: -40
     }
   }
 };
