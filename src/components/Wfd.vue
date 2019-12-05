@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="root wfd-root">
     <ToolbarPanel ref="toolbar" />
     <div style="display: flex; flex-direction: row; justify-content: flex-start;">
       <ItemPanel ref="addItemPanel" :height="height"/>
@@ -210,15 +210,10 @@
 </script>
 <style lang="scss">
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
-    html, body{
+    .wfd-root{
       font-family: 'Open Sans', sans-serif !important;
       font-size: 14px !important;
       font-weight: 400 !important;
-    }
-    button{
-      font-family: 'Open Sans', sans-serif !important;
-      font-size: 12px !important;
-      font-weight: 600 !important;
     }
     .root{
         width: 100%;
