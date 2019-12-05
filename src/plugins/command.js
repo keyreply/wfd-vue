@@ -108,6 +108,7 @@ class Command{
       },
       execute: function(graph) {
         const item = graph.findById(this.itemId);
+        if(!item) { return; }
         if(item) {
           if(this.executeTimes === 1)
             this.originModel = mix({}, item.getModel());
@@ -180,6 +181,7 @@ class Command{
         const items = graph.get('selectedItems');
         if(items && items.length > 0){
           const item = graph.findById(items[0]);
+          if(!item) { return; }
           if(item){
             manager.clipboard.push({ type: item.get('type'), model: item.getModel()});
           }

@@ -102,9 +102,9 @@
             if (this.cmdPlugin) {
               this.cmdPlugin.initPlugin(this.graph);
             }
-            if (this.isView) {
-              this.graph.fitView(5)
-            }
+            // if (this.isView) {
+            //   this.graph.fitView(5)
+            // }
           }
         }
       },
@@ -128,6 +128,7 @@
         this.graph.on('afteritemselected',(items)=>{
           if(items && items.length > 0) {
             const item = this.graph.findById(items[0]);
+            if(!item) { return; }
             const model = item.getModel();
             this.selectedModel = {...model};
             this.onNodeClick(model);
@@ -148,6 +149,7 @@
         const items = this.graph.get('selectedItems');
         if(items && items.length > 0){
           const item = this.graph.findById(items[0]);
+          if(!item) { return; }
           if(this.graph.executeCommand) {
             this.graph.executeCommand('update', {
               itemId: items[0],
@@ -199,7 +201,9 @@
        this.export(this.graph.save());
       }
       this.graph.setMode(this.mode);
-      this.graph.data(this.initShape(this.data));
+      if(this.data.nodes.length > 0) {
+        this.graph.data(this.initShape(this.data));
+      }
       this.graph.render();
       // if(this.isView && this.data && this.data.nodes){
       //   this.graph.fitView(5)

@@ -22,6 +22,7 @@ export default function(G6){
       }
     },
     onNodeLeave(e){
+      if(!e.item) { return; }
       const clazz = e.item.getModel().clazz
       if(e.target.type !== 'marker' && !this.graph.get('onDragEdge')) {
         this.graph.setItemState(e.item, clazz == 'startKr' || clazz == 'endKr' ? 
