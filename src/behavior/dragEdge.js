@@ -79,6 +79,7 @@ export default function(G6){
     },
     dragEdgeBeforeShowAnchor(e) {
       this.graph.getNodes().forEach(node => {
+        if(!node) { return; }
         if(node.getModel().clazz === 'startEvent'
           || node.getModel().clazz === 'timerStartEvent'
           || node.getModel().clazz === 'messageStartEvent')
