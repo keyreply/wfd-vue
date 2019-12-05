@@ -31,7 +31,7 @@
   "author": "stevenkwok",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/keyreply/wfd-vue.git"
+    "url": "git://github.com/keyreply/wfd-vue.git"
   },
   "dependencies": {
     "@antv/g6": "^3.1.3",
