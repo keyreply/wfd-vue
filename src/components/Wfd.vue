@@ -174,13 +174,12 @@
     },
     mounted() {
       let plugins = [];
-      if(!this.isView){
-        this.cmdPlugin = new Command();
-        const toolbar = new Toolbar({container:this.$refs['toolbar'].$el});
-        const addItemPanel = new AddItemPanel({container:this.$refs['addItemPanel'].$el});
-        const canvasPanel = new CanvasPanel({container:this.$refs['canvas']});
-        plugins = [ this.cmdPlugin,toolbar,addItemPanel,canvasPanel ];
-      }
+      this.cmdPlugin = new Command();
+      const toolbar = new Toolbar({container:this.$refs['toolbar'].$el});
+      const addItemPanel = new AddItemPanel({container:this.$refs['addItemPanel'].$el});
+      const canvasPanel = new CanvasPanel({container:this.$refs['canvas']});
+      plugins = [ this.cmdPlugin,toolbar,addItemPanel,canvasPanel ];
+      
       const width = this.$refs['canvas'].offsetWidth;
       this.graph = new G6.Graph({
         plugins: plugins,
