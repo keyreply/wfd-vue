@@ -1,6 +1,6 @@
 {
   "name": "@keyreply/wfd-vue",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "private": false,
   "description": "a conversation designer base on @antv/g6",
   "main": "dist/wfd-vue.umd.min.js",
