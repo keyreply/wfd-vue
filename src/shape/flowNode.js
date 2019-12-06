@@ -15,9 +15,7 @@ const taskDefaultOptions = {
     stroke: lightGrey,
     cursor: 'default',
     lineWidth: 2,
-    radius: 10,
-    width: 300,
-    height: 200
+    radius: 10
   },
   stateStyles: {
     selected: {
@@ -29,11 +27,7 @@ const taskDefaultOptions = {
   },
   labelCfg: {
     style: {
-      fontFamily: '"Open Sans", sans-serif',
-      fontSize: 14,
-      fontWeight: 600,
-      textAlign: 'left',
-      x: -40
+      opacity: 0
     }
   }
 };
@@ -243,7 +237,11 @@ export default function(G6) {
     afterDraw(cfg, group) {
       if (cfg.type === 'buttons') {
         let y = 40;
+        // print buttons
         _.forEach(cfg.buttons, (button) => {
+          let label = button.label;
+          if(label) { label = `${label.slice(0,25)}${label.length > 25 ? '...' : ''}` }
+
           group.addShape('rect', {
             attrs: {
               x: -45,
@@ -261,7 +259,7 @@ export default function(G6) {
               x: -30,
               y: y + 30,
               fill: '#333',
-              text: button.label,
+              text: label,
               textBaseline: 'left',
               fontFamily: '"Open Sans", sans-serif',
               fontSize: 12,
@@ -271,6 +269,22 @@ export default function(G6) {
           y += 60
         })
       }
+
+      //print big label
+      let buttonLabel = cfg.label;
+      if(buttonLabel) { buttonLabel = `${buttonLabel.slice(0,28)}${buttonLabel.length > 28 ? '...' : ''}` }
+      group.addShape('text', {
+        attrs: {
+          x: -40,
+          y: 4,
+          fill: '#333',
+          text: buttonLabel,
+          textBaseline: 'left',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 14,
+          fontWeight: 600
+        }
+      });
     },
     getAnchorPoints() {
       return [
@@ -279,12 +293,19 @@ export default function(G6) {
       ]
     },
     getShapeStyle(cfg) {
-      cfg.size = [170, 50];
+      let nodeHeight = 200;
+      const buttons = _.get(cfg, 'buttons', [])
+      // calculate height based on buttons
+      if(buttons.length > 2){
+        nodeHeight = nodeHeight + (65 * (buttons.length - 2))
+      }
+
+      cfg.size = [300, nodeHeight];
       const width = cfg.size[0];
       const height = cfg.size[1];
       const style = {
-        x: 0 - width / 2,
-        y: 0 - height / 2,
+        x: -85,
+        y: -25,
         width,
         height,
         ...this.options.style,
