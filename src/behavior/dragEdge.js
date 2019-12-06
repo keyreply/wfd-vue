@@ -128,10 +128,14 @@ export default function(G6){
     },
     _addEdge(){
       if(this.origin.targetNode) {
+        const sourceId = this.origin.sourceNode.get('id');
+        const targetId = this.origin.targetNode.get('id');
+        const sourceLabel = this.origin.sourceNode.get('model').label;
+        const targetLabel = this.origin.targetNode.get('model').label;
         const addModel = {
           clazz: 'flow',
-          source: this.origin.sourceNode.get('id'),
-          target: this.origin.targetNode.get('id'),
+          source: sourceId,
+          target: targetId,
           sourceAnchor: this.origin.sourceAnchor,
           targetAnchor: this.origin.targetAnchor,
         }
@@ -140,6 +144,10 @@ export default function(G6){
             type: 'edge',
             addModel: addModel
           });
+          this.graph.emit('connected', {
+            source: sourceLabel,
+            target: targetLabel
+          })
         }else{
           this.graph.add('edge', addModel);
         }

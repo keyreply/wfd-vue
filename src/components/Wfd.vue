@@ -51,6 +51,10 @@
         type: Function,
         default: () => {}
       },
+      onNodeConnected: {
+        type: Function,
+        default: () => {}
+      },
       isView: {
         type: Boolean,
         default: true,
@@ -137,6 +141,9 @@
             this.onNodeClick(null);
           }
         });
+        this.graph.on('connected', (item) => {
+          this.onNodeConnected(item)
+        })
         const page = this.$refs['canvas'];
         const graph = this.graph;
         const height = this.height-1;
