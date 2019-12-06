@@ -1,16 +1,16 @@
 <template>
-  <div class="root">
-    <ToolbarPanel ref="toolbar" v-if="!isView" />
-    <div style="display: flex">
-      <ItemPanel ref="addItemPanel" v-if="!isView" :height="height"/>
-      <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width':isView?'100%':'70%','border-bottom':isView?0:null}"></div>
+  <div class="root wfd-root">
+    <ToolbarPanel ref="toolbar" />
+    <div style="display: flex; flex-direction: row; justify-content: flex-start;">
+      <ItemPanel ref="addItemPanel" :height="height"/>
+      <div class="canvas-container" :style="{'height':height+'px','border-bottom':isView?0:null}">
+        <div ref="canvas" class="canvasPanel" :style="{'height':height+'px','width': '100%'}"></div>
+      </div>
       <DetailPanel ref="detailPanel"
                    v-if="!isView"
                    :height="height"
                    :model="selectedModel"
                    :readOnly="mode !== 'edit'"
-                   :users="users"
-                   :groups="groups"
                    :signalDefs="processModel.signalDefs"
                    :messageDefs="processModel.messageDefs"
                    :onChange="(key,val)=>{onItemCfgChange(key,val)}" />
@@ -20,6 +20,7 @@
 <script>
   import G6 from '@antv/g6/src';
   import { getShapeName } from '../util/clazz'
+  import { red } from '../util/defaultStyle'
   import Command from '../plugins/command'
   import Toolbar from '../plugins/toolbar'
   import AddItemPanel from '../plugins/addItemPanel'
@@ -46,9 +47,13 @@
       }
     },
     props: {
+      onNodeClick: {
+        type: Function,
+        default: () => {}
+      },
       isView: {
         type: Boolean,
-        default: false,
+        default: true,
       },
       mode: {
         type: String,
@@ -60,19 +65,15 @@
       },
       lang: {
         type: String,
-        default: "zh"
+        default: "en"
       },
       data: {
         type: Object,
         default: () => ({nodes:[],edges:[]})
       },
-      users: {
-        type: Array,
-        default: () => ([])
-      },
-      groups: {
-        type: Array,
-        default: () => ([])
+      export: {
+        type: Function,
+        default: () => {}
       }
     },
     data() {
@@ -101,9 +102,9 @@
             if (this.cmdPlugin) {
               this.cmdPlugin.initPlugin(this.graph);
             }
-            if (this.isView) {
-              this.graph.fitView(5)
-            }
+            // if (this.isView) {
+            //   this.graph.fitView(5)
+            // }
           }
         }
       },
@@ -127,9 +128,13 @@
         this.graph.on('afteritemselected',(items)=>{
           if(items && items.length > 0) {
             const item = this.graph.findById(items[0]);
-            this.selectedModel = {...item.getModel()};
+            if(!item) { return; }
+            const model = item.getModel();
+            this.selectedModel = {...model};
+            this.onNodeClick(model);
           } else {
             this.selectedModel = this.processModel;
+            this.onNodeClick(null);
           }
         });
         const page = this.$refs['canvas'];
@@ -144,6 +149,7 @@
         const items = this.graph.get('selectedItems');
         if(items && items.length > 0){
           const item = this.graph.findById(items[0]);
+          if(!item) { return; }
           if(this.graph.executeCommand) {
             this.graph.executeCommand('update', {
               itemId: items[0],
@@ -168,19 +174,18 @@
     },
     mounted() {
       let plugins = [];
-      if(!this.isView){
-        this.cmdPlugin = new Command();
-        const toolbar = new Toolbar({container:this.$refs['toolbar'].$el});
-        const addItemPanel = new AddItemPanel({container:this.$refs['addItemPanel'].$el});
-        const canvasPanel = new CanvasPanel({container:this.$refs['canvas']});
-        plugins = [ this.cmdPlugin,toolbar,addItemPanel,canvasPanel ];
-      }
+      this.cmdPlugin = new Command();
+      const toolbar = new Toolbar({container:this.$refs['toolbar'].$el});
+      const addItemPanel = new AddItemPanel({container:this.$refs['addItemPanel'].$el});
+      const canvasPanel = new CanvasPanel({container:this.$refs['canvas']});
+      plugins = [ this.cmdPlugin,toolbar,addItemPanel,canvasPanel ];
+      
       const width = this.$refs['canvas'].offsetWidth;
       this.graph = new G6.Graph({
         plugins: plugins,
         container: this.$refs['canvas'],
-        height: this.height,
-        width: width,
+        height: 4000,
+        width: 4000,
         modes: {
           default: ['drag-canvas', 'clickSelected'],
           view: [ ],
@@ -188,35 +193,46 @@
             'dragPanelItemAddNode','clickSelected','deleteItem','itemAlign'],
         },
         defaultEdge: {
-          shape: 'flow-polyline-round',
-        },
+          shape: 'flow-polyline-round'
+        }
       });
-      this.graph.saveXML = (createFile = true) => exportXML(this.graph.save(),this.processModel,createFile);
-      if(this.isView)
-        this.graph.setMode('view');
-      else
-        this.graph.setMode(this.mode);
-      this.graph.data(this.initShape(this.data));
-      this.graph.render();
-      if(this.isView && this.data && this.data.nodes){
-        this.graph.fitView(5)
+      this.graph.saveXML = (createFile = true) => {
+       this.export(this.graph.save());
       }
+      this.graph.setMode(this.mode);
+      if(this.data.nodes.length > 0) {
+        this.graph.data(this.initShape(this.data));
+      }
+      this.graph.render();
+      // if(this.isView && this.data && this.data.nodes){
+      //   this.graph.fitView(5)
+      // }
       this.initEvents();
     }
   };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+    .wfd-root{
+      font-family: 'Open Sans', sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 400 !important;
+    }
     .root{
         width: 100%;
         height: 100%;
         background-color: #fff;
         display: block;
     }
-    .canvasPanel {
-        flex: 0 0 auto;
-        float: left;
-        width:70%;
+    .canvas-container{
         background-color: #fff;
         border-bottom: 1px solid #E9E9E9;
+        width: 90%;
+        overflow: auto;
+    }
+    .canvasPanel {
+        flex: 0 0 auto;
+        width: 4000px !important;
+        height: 4000px !important;
     }
 </style>

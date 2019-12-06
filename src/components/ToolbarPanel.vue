@@ -47,7 +47,7 @@
                 <span class="iconfont icon-fit"/>
             </span>
         </el-tooltip>
-        <span class="separator"/>
+        <!-- <span class="separator"/>
         <el-tooltip :content="this.i18n['tooltip.toFront']" placement="bottom">
             <span class="command" data-command="toFront">
                 <span class="iconfont icon-to-front"/>
@@ -57,7 +57,7 @@
             <span class="command" data-command="toBack">
                 <span class="iconfont icon-to-back"/>
             </span>
-        </el-tooltip>
+        </el-tooltip> -->
     </div>
 </template>
 

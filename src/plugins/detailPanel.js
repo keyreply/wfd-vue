@@ -41,6 +41,7 @@ class DetailPanel {
     let clazz = null;
     if(selectedItems && selectedItems.length > 0){
       selectedItem = graph.findById(selectedItems[0]);
+      if(!selectedItem) { return; }
       clazz = selectedItem.getModel().clazz;
     }
     each(parentNode.children,(child,i)=>{

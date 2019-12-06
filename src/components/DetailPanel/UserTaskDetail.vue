@@ -15,33 +15,7 @@
                     <el-option key="custom" value="custom" :label="i18n['userTask.assignType.custom']"/>
                 </el-select>
             </div>
-            <div v-if="model.assignType === 'person'" class="panelRow">
-                <div>{{i18n['userTask.assignType.person.title']}}：</div>
-                <el-select style="width:90%; font-size:12px"
-                           :placeholder="i18n['userTask.assignType.person.placeholder']"
-                           :disabled="readOnly"
-                           :value="model.assignValue"
-                           :multiple="true"
-                           :filterable="true"
-                           :filter-method="(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0"
-                           @change="(e) => onChange('assignValue', e)">
-                    <el-option v-for="user in users" :key="user.id" :label="user.name" :value="user.id" />
-                </el-select>
-            </div>
-            <div v-else-if="model.assignType === 'persongroup'" class="panelRow">
-                <div>{{i18n['userTask.assignType.persongroup.title']}}：</div>
-                <el-select style="width:90%; font-size:12px"
-                           :placeholder="i18n['userTask.assignType.persongroup.placeholder']"
-                           :value="model.assignValue"
-                           :disabled="readOnly"
-                           :multiple="true"
-                           :filterable="true"
-                           :filter-method="(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0"
-                           @change="(e) => onChange('assignValue', e)">
-                    <el-option v-for="group in groups" :key="group.id" :label="group.name" :value="group.id" />
-                </el-select>
-            </div>
-            <div v-else-if="model.assignType === 'custom'" class="panelRow">
+            <div v-if="model.assignType === 'custom'" class="panelRow">
                 <div>{{i18n['userTask.assignType.custom.title']}}：</div>
                 <el-input style="width:90%; font-size:12px"
                           :value="model.javaClass"

@@ -1,8 +1,8 @@
 {
-  "name": "wfd-vue",
-  "version": "1.0.12",
+  "name": "@keyreply/wfd-vue",
+  "version": "1.0.23",
   "private": false,
-  "description": "a workflow designer base on @antv/g6",
+  "description": "a conversation designer base on @antv/g6",
   "main": "dist/wfd-vue.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve example/main.js",
@@ -14,14 +14,11 @@
     "dist"
   ],
   "authors": {
-    "name": "guozhaolong",
-    "email": "guozhaolong@gmail.com"
+    "name": "theodorus yoga",
+    "email": "theodorus@keyreply.com"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/guozhaolong/wfd-vue/issues"
-  },
-  "homepage": "https://github.com/guozhaolong/wfd-vue#readme",
+  "homepage": "https://github.com/keyreply/wfd-vue",
   "directories": {
     "example": "example"
   },
@@ -34,7 +31,7 @@
   "author": "stevenkwok",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guozhaolong/wfd-vue.git"
+    "url": "git://github.com/keyreply/wfd-vue.git"
   },
   "dependencies": {
     "@antv/g6": "^3.1.3",

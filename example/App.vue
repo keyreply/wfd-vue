@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">导出XML</el-button>
-    <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.modalVisible=true}">查看流程图</el-button>
-    <wfd-vue ref="wfd" :data="demoData" :height="600" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
-    <el-dialog title="查看流程图" :visible.sync="modalVisible" width="60%">
-        <wfd-vue ref="wfd" :data="demoData1" :height="300" isView />
+    <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.$refs['wfd'].graph.saveXML()}">Save JSON</el-button>
+    <el-button size="small" style="float:right;margin-top:6px;margin-right:6px;" @click="()=>{this.modalVisible=true}">View Flowchart</el-button>
+    <wfd-vue ref="wfd" :data="keyReplyData" :height="600" :export="exportData" :users="candidateUsers" :groups="candidateGroups" :lang="lang" />
+    <el-dialog title="" :visible.sync="modalVisible" width="60%">
+        <wfd-vue ref="wfd" :data="keyReplyData" :height="300" isView />
     </el-dialog>
   </div>
 </template>
@@ -19,11 +19,30 @@ export default {
   data () {
     return {
       modalVisible:false,
-      lang: "zh",
+      lang: "en",
+      keyReplyData: {
+        nodes: [
+          { id: 'startNode1', x: 200, y: 100, label: 'Start conversation flow from this node', clazz: 'startKr' },
+          { id: 'state1', x: 600, y: 100, label: 'ask_location', clazz: 'basicStateKr', type: 'buttons', buttons: [{
+            label: 'Main Menu'
+          }, {
+            label: 'Help & Support'
+          }] },
+          { id: 'state2', x: 200, y: 350, label: 'serve_menu', clazz: 'basicStateKr', type: 'buttons', buttons: [{
+            label: '-Display Restaurant Menu-'
+          }] },
+          { id: 'endNode', x: 600, y: 350, label: 'End of conversation flow', clazz: 'endKr' }
+        ],
+        edges: [
+          { source: 'startNode1', target: 'state1', sourceAnchor:0, targetAnchor:0, clazz: 'flow' },
+          { source: 'state1', target: 'state2', sourceAnchor:1, targetAnchor:0, clazz: 'flow' },
+          { source: 'state2', target: 'endNode', sourceAnchor:1, targetAnchor:0, clazz: 'flow' }
+        ]
+      },
       demoData: {
-        nodes: [{ id: 'startNode1', x: 50, y: 200, label: '', clazz: 'start', },
+        nodes: [{ id: 'startNode1', x: 100, y: 100, label: '', clazz: 'startKr' },
           { id: 'startNode2', x: 50, y: 320, label: '', clazz: 'timerStart', },
-          { id: 'taskNode1', x: 200, y: 200, label: '主任审批', clazz: 'userTask',  },
+          { id: 'taskNode1', x: 200, y: 200, label: 'heyehy', clazz: 'userTask',  },
           { id: 'taskNode2', x: 400, y: 200, label: '经理审批', clazz: 'scriptTask',  },
           { id: 'gatewayNode', x: 400, y: 320, label: '金额大于1000', clazz: 'inclusiveGateway',  },
           { id: 'taskNode3', x: 400, y: 450, label: '董事长审批', clazz: 'receiveTask', },
@@ -62,6 +81,9 @@ export default {
       },
       candidateUsers: [{id:'1',name:'Tom'},{id:'2',name:'Steven'},{id:'3',name:'Andy'}],
       candidateGroups: [{id:'1',name:'Manager'},{id:'2',name:'Security'},{id:'3',name:'OA'}],
+      exportData: (jsonData) => {
+        console.warn('export data', jsonData);
+      }
     }
   },
   mounted() {
@@ -71,7 +93,6 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

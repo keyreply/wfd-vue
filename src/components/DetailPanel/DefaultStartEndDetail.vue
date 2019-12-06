@@ -1,18 +1,15 @@
 <template>
-    <div :data-clazz="model.clazz">
-        <div class="panelTitle">{{i18n['startEvent']}}</div>
-        <div class="panelBody">
-            <DefaultDetail :model="model" :onChange="onChange" :readOnly="readOnly" />
+    <div>
+        <div class="panelRow">
+            <el-checkbox @change="(value) => onChange('hideIcon', value)"
+                         :disabled="readOnly"
+                         :value="!!model.hideIcon">{{i18n['hideIcon']}}</el-checkbox>
         </div>
     </div>
 </template>
 <script>
-  import DefaultDetail from "./DefaultStartEndDetail";
   export default {
     inject: ['i18n'],
-    components: {
-      DefaultDetail
-    },
     props: {
       model: {
         type:Object,

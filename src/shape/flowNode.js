@@ -1,26 +1,39 @@
 const deepMix = require('@antv/util/lib/deep-mix');
-import editorStyle from "../util/defaultStyle";
+import editorStyle, { red, red2, white, grey, lightGrey } from "../util/defaultStyle";
 
 const taskDefaultOptions = {
   icon: null,
   iconStyle: {
-    width: 12,
-    height: 12,
-    left: 2,
-    top: 2,
+    width: 18,
+    height: 18,
+    left: 15,
+    top: 14
   },
   style:{
     ...editorStyle.nodeStyle,
-    fill: '#E7F7FE',
-    stroke:'#1890FF',
+    fill: white,
+    stroke: lightGrey,
     cursor: 'default',
+    lineWidth: 2,
+    radius: 10,
+    width: 300,
+    height: 200
   },
   stateStyles: {
     selected: {
-      fill: '#95D6FB',
+      fill: red2,
     },
     hover: {
       cursor: editorStyle.cursor.hoverNode,
+    }
+  },
+  labelCfg: {
+    style: {
+      fontFamily: '"Open Sans", sans-serif',
+      fontSize: 14,
+      fontWeight: 600,
+      textAlign: 'left',
+      x: -40
     }
   }
 };
@@ -54,21 +67,38 @@ const startDefaultOptions = {
   iconStyle: {
     width: 18,
     height: 18,
-    left: 6,
-    top: 6,
+    left: 20,
+    top: 15,
   },
   style:{
     ...editorStyle.nodeStyle,
-    fill: '#FEF7E8',
-    stroke:'#FA8C16',
+    fill: white,
+    stroke: red,
     cursor: 'default',
+    radius: 10,
+    lineWidth: 2,
+    width: 300,
+    height: 150
   },
   stateStyles: {
     selected: {
-      fill: '#FCD49A',
+      fill: red2,
+      stroke: red2
     },
     hover: {
+      fill: red2,
       cursor: editorStyle.cursor.hoverNode,
+    }
+  },
+  labelCfg: {
+    style: {
+      fontFamily: '"Open Sans", sans-serif',
+      fontSize: 12,
+      fontWeight: 400,
+      x: -65,
+      y: 50,
+      textAlign: 'left',
+      width: 50
     }
   }
 };
@@ -78,20 +108,24 @@ const endDefaultOptions = {
   iconStyle: {
     width: 18,
     height: 18,
-    left: 6,
-    top: 6,
+    left: 20,
+    top: 15,
   },
   style:{
     ...editorStyle.nodeStyle,
-    fill: '#EFF7E8',
-    stroke:'#F5222D',
+    fill: white,
+    stroke: red,
     cursor: 'default',
+    radius: 25,
+    lineWidth: 2
   },
   stateStyles: {
     selected: {
-      fill: '#CFD49A',
+      fill: white,
+      stroke: red2
     },
     hover: {
+      fill: red2,
       cursor: editorStyle.cursor.hoverNode,
     }
   }
@@ -122,13 +156,151 @@ const catchDefaultOptions = {
 };
 
 export default function(G6) {
+  // keyreply nodes and configs
+  G6.registerNode('start-node-kr', {
+    shapeType: 'rect',
+    afterDraw(cfg, group) {
+      group.addShape('text', {
+        attrs: {
+          x: -35,
+          y: 4,
+          fill: '#333',
+          text: 'conversation_start',
+          textBaseline: 'left',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 14,
+          fontWeight: 600
+        }
+      });
+    },
+    options: {
+      ...deepMix({},startDefaultOptions,{icon: require('../assets/icons/flow/start.png')})
+    },
+    getShapeStyle(cfg) {
+      cfg.size = [170, 50];
+      const width = cfg.size[0];
+      const height = cfg.size[1];
+      const style = {
+        x: 0 - width / 2,
+        y: 0 - height / 2,
+        width,
+        height,
+        ...this.options.style,
+      };
+      return style;
+    },
+    getAnchorPoints() {
+      return [
+        [1, 0.5], // right
+      ]
+    }
+  }, 'base-node');
+
+  G6.registerNode('end-node-kr', {
+    shapeType: 'rect',
+    afterDraw(cfg, group) {
+      group.addShape('text', {
+        attrs: {
+          x: -35,
+          y: 4,
+          fill: '#333',
+          text: 'conversation_end',
+          textBaseline: 'center',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 14,
+          fontWeight: 600
+        }
+      });
+    },
+    options: {
+      ...deepMix({},startDefaultOptions,{icon: require('../assets/icons/flow/end.png')})
+    },
+    getShapeStyle(cfg) {
+      cfg.size = [170, 50];
+      const width = cfg.size[0];
+      const height = cfg.size[1];
+      const style = {
+        x: 0 - width / 2,
+        y: 0 - height / 2,
+        width,
+        height,
+        ...this.options.style,
+      };
+      return style;
+    },
+    getAnchorPoints() {
+      return [
+        [0, 0.5], // left
+      ]
+    }
+  }, 'base-node');
+
+  G6.registerNode('basic-state-kr', {
+    shapeType: 'rect',
+    options: deepMix({},taskDefaultOptions,{
+      icon: require('../assets/icons/flow/task.png')
+    }),
+    afterDraw(cfg, group) {
+      if (cfg.type === 'buttons') {
+        let y = 40;
+        _.forEach(cfg.buttons, (button) => {
+          group.addShape('rect', {
+            attrs: {
+              x: -45,
+              y,
+              fill: white,
+              stroke: grey,
+              lineWidth: 1,
+              height: 50, 
+              width: 220,
+              radius: 10
+            }
+          });
+          group.addShape('text', {
+            attrs: {
+              x: -30,
+              y: y + 30,
+              fill: '#333',
+              text: button.label,
+              textBaseline: 'left',
+              fontFamily: '"Open Sans", sans-serif',
+              fontSize: 12,
+              fontWeight: 400
+            }
+          });
+          y += 60
+        })
+      }
+    },
+    getAnchorPoints() {
+      return [
+        [0, 0.5], // left
+        [1, 0.5] // right
+      ]
+    },
+    getShapeStyle(cfg) {
+      cfg.size = [170, 50];
+      const width = cfg.size[0];
+      const height = cfg.size[1];
+      const style = {
+        x: 0 - width / 2,
+        y: 0 - height / 2,
+        width,
+        height,
+        ...this.options.style,
+      };
+      return style;
+    }
+  }, 'base-node');
+
+
   G6.registerNode('task-node', {
     shapeType: 'rect',
     options:{
       ...taskDefaultOptions
     },
     getShapeStyle(cfg) {
-      cfg.size = [80, 44];
+      cfg.size = [170, 50];
       const width = cfg.size[0];
       const height = cfg.size[1];
       const style = {

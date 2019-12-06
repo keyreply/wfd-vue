@@ -1,3 +1,11 @@
+
+export const red = '#E4392B';
+export const red2 = '#fcebe9';
+export const white = '#FFF';
+export const grey = '#333';
+export const lightGrey = '#888';
+export const blue = '#339dff';
+
 export default {
   nodeActivedOutterStyle: { lineWidth: 0 },
   groupSelectedOutterStyle: { stroke: '#E0F0FF', lineWidth: 2 },
@@ -19,7 +27,7 @@ export default {
     radius: 4,
     strokeOpacity: .7,
   },
-  edgeStyle: { stroke: '#A3B1BF', strokeOpacity: .92, lineWidth: 1, lineAppendWidth: 8, endArrow: true},
+  edgeStyle: { stroke: lightGrey, lineWidth: 2, lineAppendWidth: 8, endArrow: true},
   groupBackgroundPadding: [40, 10, 10, 10],
   groupLabelOffsetX: 10,
   groupLabelOffsetY: 10,
@@ -32,10 +40,10 @@ export default {
   multiSelectRectStyle: { fill: '#1890FF', fillOpacity: .08, stroke: '#1890FF', opacity: .1 },
   dragNodeHoverToGroupStyle: { stroke: '#1890FF', lineWidth: 2 },
   dragNodeLeaveFromGroupStyle: { stroke: '#BAE7FF', lineWidth: 2 },
-  anchorPointStyle: { radius: 3.5, fill: '#fff', stroke: '#1890FF', lineAppendWidth: 12 },
+  anchorPointStyle: { radius: 3.5, fill: '#fff', stroke: red, lineAppendWidth: 12, lineWidth: 2 },
   anchorHotsoptStyle: { radius: 12, fill: '#1890FF', fillOpacity: .25 },
   anchorHotsoptActivedStyle: { radius: 14 },
-  anchorPointHoverStyle: { radius: 4, fill: '#1890FF', fillOpacity: 1, stroke: '#1890FF' },
+  anchorPointHoverStyle: { radius: 4, fill: red, fillOpacity: 1, stroke: red },
   nodeControlPointStyle: { radius: 4, fill: '#fff', shadowBlur: 4, shadowColor: '#666' },
   edgeControlPointStyle: { radius: 6, symbol: 'square', lineAppendWidth: 6, fillOpacity: 0, strokeOpacity: 0 },
   nodeSelectedBoxStyle: { stroke: '#C2C2C2' },

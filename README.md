@@ -4,10 +4,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/wfd-vue.svg?style=flat)](https://www.npmjs.org/package/wfd-vue)
 ![](https://img.shields.io/badge/license-MIT-000000.svg)
 
-![image](https://github.com/guozhaolong/wfd-vue/raw/master/example/snapshots/1.jpg)
-
-## Online Demo
-https://guozhaolong.github.io/wfd-vue/
+![image](https://github.com/keyreply/wfd-vue/raw/feature/flow-test/example/snapshots/1.png)
 
 ## Usage
 ```
@@ -26,10 +23,9 @@ export default {
   },
   data () {
     return {
-      lang: "zh",
-      demoData: {...},
-      candidateUsers: [...],
-      candidateGroups: [...]
+      lang: "en",
+      data: {...},
+      export: () => { ... }
     }
   }
 }
@@ -37,18 +33,15 @@ export default {
 ```
 
 ## API
-###### 属性
-* data: 初始化数据
-* height: 画布高度
-* mode: view为只读，edit为可编辑
-* lang: zh为中文，en为英文
-* isView: 是否为预览模式（隐藏工具栏和属性栏）
-* users: 选择审批人时对应的数据，数组内对象以id为键，name为值
-* groups: 选择审批组时对应的数据，数组内对象以id为键，name为值
+###### Attributes
+* data: initial data
+* height: canvas height
+* mode: view/edit
+* lang: en
+* isView: whether it is preview mode (hide the toolbar and property bar)
 
-###### 方法
-* save(): 调用this.$refs['wfd'].graph.save()生成json
-* saveXML(): 调用this.$refs['wfd'].graph.saveXML(createFile)生成Flowable XML，createFile参数是否同时生成xml文件，默认为true
+###### Methods
+* export(): export to JSON data, including nodes, edges, and groups
 
 
 ### Run Example
