@@ -128,6 +128,23 @@
         }
         return data;
       },
+      addNode({ source, target, sourceAnchor, targetAnchor }){
+        const addModel = {
+          clazz: 'flow',
+          source: source,
+          target: target,
+          sourceAnchor: sourceAnchor,
+          targetAnchor: targetAnchor,
+        }
+        if(this.graph.executeCommand){
+          this.graph.executeCommand('add', {
+            type: 'edge',
+            addModel: addModel
+          });
+        }else{
+          this.graph.add('edge', addModel);
+        }
+    },
       initEvents(){
         this.graph.on('afteritemselected',(items)=>{
           if(items && items.length > 0) {
@@ -141,9 +158,9 @@
             this.onNodeClick(null);
           }
         });
-        this.graph.on('connected', (item) => {
-          this.onNodeConnected(item)
-        })
+        this.graph.on('connected', async (item) => {
+          this.onNodeConnected(item);
+        });
         const page = this.$refs['canvas'];
         const graph = this.graph;
         const height = this.height-1;

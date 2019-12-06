@@ -138,19 +138,10 @@ export default function(G6){
           target: targetId,
           sourceAnchor: this.origin.sourceAnchor,
           targetAnchor: this.origin.targetAnchor,
+          sourceLabel,
+          targetLabel
         }
-        if(this.graph.executeCommand){
-          this.graph.executeCommand('add', {
-            type: 'edge',
-            addModel: addModel
-          });
-          this.graph.emit('connected', {
-            source: sourceLabel,
-            target: targetLabel
-          })
-        }else{
-          this.graph.add('edge', addModel);
-        }
+        this.graph.emit('connected', addModel)
       }
     }
   });

@@ -93,8 +93,11 @@ export default {
   mounted() {
   },
   methods: {
-    onNodeConnected(item) {
-      console.warn('connected', item)
+    async onNodeConnected(item) {
+      const confirmed = confirm('Are you sure you want to connect ' + item.sourceLabel + ' and ' + item.targetLabel + '?'); 
+      if(confirmed){
+        this.$refs['wfd'].addNode(item)
+      }
     }
   }
 }
