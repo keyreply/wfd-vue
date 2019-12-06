@@ -24,6 +24,15 @@ export default function(G6){
       selectedItems = [e.item.get('id')];
       this.graph.set('selectedItems',selectedItems);
       this.graph.emit('afteritemselected',selectedItems);
+
+      // select nodes
+      let selected = this.graph.findAllByState('node', 'selected');
+      if(selected.length > 0) {
+        const edges = selected[0].get('edges');
+        _.forEach(edges, (edge) => {
+          this.graph.setItemState(edge, 'selectedByNode', true);
+        });
+      }
     },
     onNodeMouseOver(e){
       if(this.graph.getCurrentMode() === 'edit')
@@ -46,6 +55,10 @@ export default function(G6){
       let selected = this.graph.findAllByState('node', 'selected');
       selected.forEach(node => {
         this.graph.setItemState(node, 'selected', false);
+        const edges = node.get('edges');
+        _.forEach(edges, (edge) => {
+          this.graph.setItemState(edge, 'selectedByNode', false);
+        });
       });
       selected = this.graph.findAllByState('edge', 'selected');
       selected.forEach(edge => {

@@ -5,6 +5,7 @@ export const white = '#FFF';
 export const grey = '#333';
 export const lightGrey = '#888';
 export const blue = '#339dff';
+export const green = '#00e500';
 
 export default {
   nodeActivedOutterStyle: { lineWidth: 0 },

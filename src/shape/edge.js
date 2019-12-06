@@ -1,4 +1,4 @@
-import editorStyle from "../util/defaultStyle";
+import editorStyle, { green } from "../util/defaultStyle";
 const uniqBy = (arr,key)=>{
   const result = [];
   arr.forEach( i => {
@@ -36,6 +36,11 @@ export default function(G6){
       }else if(name === 'hover'){
         if(value)
           path.attr('stroke', this.options.stateStyles.hover.stroke);
+        else
+          path.attr('stroke',this.options.style.stroke);
+      } else if(name === 'selectedByNode') {
+        if(value)
+          path.attr('stroke', green );
         else
           path.attr('stroke',this.options.style.stroke);
       }
