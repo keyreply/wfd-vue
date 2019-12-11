@@ -341,15 +341,26 @@ export default function(G6) {
       });
 
       // print text
-      const textLines = wordWrap(cfg.text, 38);
-      const line = ((textLines.match(/\n/g)) || []).length
+      let textLines = 1;
+      let text = '';
+      if(Array.isArray(cfg.text)) {
+        _.forEach(cfg.text, singleText => {
+          const wrapped = wordWrap(singleText, 38)
+          textLines += ((wrapped.match(/\n/g)) || []).length
+          text +=  wrapped + "\n"
+        })
+      } else {
+        text = wordWrap(cfg.text, 38);
+        textLines = ((text.match(/\n/g)) || []).length
+      }
+    
       group.addShape('rect', {
         attrs: {
           x: -70,
           y: 30,
           fill: '#eee',
           width: 270,
-          height: 40 + (15 * (line)),
+          height: 40 + (15 * (textLines)),
           radius: 5
         }
       });
@@ -358,7 +369,7 @@ export default function(G6) {
           x: -60,
           y: 45,
           fill: '#333',
-          text: textLines,
+          text: text,
           textBaseline: 'top',
           fontFamily: '"Open Sans", sans-serif',
           fontSize: 12
@@ -367,7 +378,7 @@ export default function(G6) {
 
 
       if (cfg.type === 'buttons') {
-        let y = 40 + (15 * (line + 2));
+        let y = 40 + (15 * (textLines + 2));
         // print buttons
         _.forEach(cfg.buttons, (button) => {
           let label = button.label;
@@ -425,11 +436,20 @@ export default function(G6) {
     getShapeStyle(cfg) {
       let nodeHeight = 175;
       const buttons = _.get(cfg, 'buttons', [])
-      const textLines = wordWrap(cfg.text, 38);
-      const line = ((textLines.match(/\n/g)) || []).length
+     // print text
+     let textLines = 1;
+     if(Array.isArray(cfg.text)) {
+       _.forEach(cfg.text, text => {
+         const wrapped = wordWrap(text, 38)
+         textLines += ((wrapped.match(/\n/g)) || []).length
+       })
+     } else {
+      const wrapped = wordWrap(cfg.text, 38)
+       textLines = ((wrapped.match(/\n/g)) || []).length
+     }
       // calculate height based on buttons and text length
       if(buttons.length > 1){
-        nodeHeight = nodeHeight + (45 * (buttons.length - 1)) + (15 * line)
+        nodeHeight = nodeHeight + (45 * (buttons.length - 1)) + (15 * textLines)
       }
 
       cfg.size = [300, nodeHeight];

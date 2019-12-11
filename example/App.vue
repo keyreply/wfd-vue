@@ -23,7 +23,8 @@ export default {
       keyReplyData: {
         nodes: [
           { id: 'startNode1', x: 200, y: 100, label: 'Start conversation flow from this node', clazz: 'startKr' },
-          { id: 'state1', x: 600, y: 100, text: 'Can I get your location? Please allow your phone to have a permission to read your GPS. You have no permission to cancel this action.', label: 'ask_location_where_are_you_in_this_coordinates', clazz: 'basicStateKr', type: 'buttons', buttons: [{
+          { id: 'state1', x: 600, y: 100, text: ['Can I get your location? Please allow your phone to have a permission to read your GPS. You have no permission to cancel this action.', 
+          'Can I get your location? Please allow your phone to have a permission to read your GPS. You have no permission to cancel this action.'], label: 'ask_location_where_are_you_in_this_coordinates', clazz: 'basicStateKr', type: 'buttons', buttons: [{
             label: 'Main Menu'
           }, {
             label: 'Help & Support Management System Coordinates'
