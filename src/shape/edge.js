@@ -35,14 +35,18 @@ export default function(G6){
         }
       }else if(name === 'hover'){
         if(value)
-          path.attr('stroke', this.options.stateStyles.hover.stroke);
+        path.attr('lineWidth', 3);
         else
-          path.attr('stroke',this.options.style.stroke);
+        path.attr('lineWidth', 2);
       } else if(name === 'selectedByNode') {
-        if(value)
+        if(value){
+          path.attr('zIndex', 9999);
           path.attr('stroke', green );
-        else
+        }
+        else {
+          path.attr('zIndex', 1);
           path.attr('stroke',this.options.style.stroke);
+        }
       }
     },
     drawShape(cfg, group) {
