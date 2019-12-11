@@ -118,11 +118,10 @@ export default function(G6) {
         const rect = group.getChildByIndex(0);
         if (value) {
           rect.attr('stroke', blue)
-          rect.attr('lineWidth', 3)
+          rect.attr('lineWidth', 1)
           group.showAnchor(group);
         } else {
-          rect.attr('stroke', name == 'show-anchor-red' ? red : lightGrey)
-          rect.attr('lineWidth', 2)
+          rect.attr('stroke', lightGrey)
           group.clearAnchor(group);
         }
       } else if (name === 'selected') {

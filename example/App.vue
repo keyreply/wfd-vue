@@ -23,7 +23,7 @@ export default {
       keyReplyData: {
         nodes: [
           { id: 'startNode1', x: 200, y: 100, label: 'Start conversation flow from this node', clazz: 'startKr' },
-          { id: 'state1', x: 600, y: 100, label: 'ask_location_where_are_you_in_this_coordinates', clazz: 'basicStateKr', type: 'buttons', buttons: [{
+          { id: 'state1', x: 600, y: 100, text: 'Can I get your location? Please allow your phone to have a permission to read your GPS. You have no permission to cancel this action.', label: 'ask_location_where_are_you_in_this_coordinates', clazz: 'basicStateKr', type: 'buttons', buttons: [{
             label: 'Main Menu'
           }, {
             label: 'Help & Support Management System Coordinates'
@@ -31,11 +31,18 @@ export default {
             label: 'Contact Us'
           }, {
             label: 'About Us'
+          },
+          {
+            label: 'Another Button #1'
+          }, {
+            label: 'Another Button #2'
+          }, {
+            label: 'Another Button #3'
           }] },
-          { id: 'state2', x: 200, y: 350, label: 'serve_menu', clazz: 'basicStateKr', type: 'buttons', buttons: [{
+          { id: 'state2', x: 200, y: 350, label: 'serve_menu', text: 'What do you want to order from this lovely restaurant?', clazz: 'basicStateKr', type: 'buttons', buttons: [{
             label: '-Display Restaurant Menu-'
           }] },
-          { id: 'endNode', x: 600, y: 350, label: 'End of conversation flow', clazz: 'endKr' }
+          { id: 'endNode', x: 600, y: 550, label: 'End of conversation flow', clazz: 'endKr' }
         ],
         edges: [
           { source: 'startNode1', target: 'state1', sourceAnchor:0, targetAnchor:0, clazz: 'flow' },

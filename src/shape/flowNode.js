@@ -1,5 +1,35 @@
 const deepMix = require('@antv/util/lib/deep-mix');
-import editorStyle, { red, red2, white, grey, lightGrey } from "../util/defaultStyle";
+import editorStyle, { red, red2, white, blue, lightGrey, lightGreyBg } from "../util/defaultStyle";
+
+function testWhite(x) {
+  var white = new RegExp(/^\s$/);
+  return white.test(x.charAt(0));
+};
+
+function wordWrap(str, maxWidth) {
+  var newLineStr = "\n"; 
+  var done = false; 
+  var res = '';
+  while (str.length > maxWidth) {                 
+      var found = false;
+      // Inserts new line at first whitespace of the line
+      for (var i = maxWidth - 1; i >= 0; i--) {
+          if (testWhite(str.charAt(i))) {
+              res = res + [str.slice(0, i), newLineStr].join('');
+              str = str.slice(i + 1);
+              found = true;
+              break;
+          }
+      }
+      // Inserts new line at maxWidth position, the word is too long to wrap
+      if (!found) {
+          res += [str.slice(0, maxWidth), newLineStr].join('');
+          str = str.slice(maxWidth);
+      }
+
+  }
+  return res + str;
+}
 
 const taskDefaultOptions = {
   icon: null,
@@ -14,8 +44,7 @@ const taskDefaultOptions = {
     fill: white,
     stroke: lightGrey,
     cursor: 'default',
-    lineWidth: 2,
-    radius: 10
+    lineWidth: 0.5
   },
   stateStyles: {
     selected: {
@@ -67,10 +96,9 @@ const startDefaultOptions = {
   style:{
     ...editorStyle.nodeStyle,
     fill: white,
-    stroke: red,
+    stroke: lightGrey,
     cursor: 'default',
-    radius: 10,
-    lineWidth: 2,
+    lineWidth: 0.5,
     width: 300,
     height: 150
   },
@@ -88,7 +116,6 @@ const startDefaultOptions = {
     style: {
       fontFamily: '"Open Sans", sans-serif',
       fontSize: 12,
-      fontWeight: 400,
       x: -65,
       y: 50,
       textAlign: 'left',
@@ -154,21 +181,62 @@ export default function(G6) {
   G6.registerNode('start-node-kr', {
     shapeType: 'rect',
     afterDraw(cfg, group) {
+      group.addShape('rect', {
+        attrs: {
+          x: -70,
+          y: 30,
+          fill: '#eee',
+          width: 270,
+          height: 40,
+          radius: 5
+        }
+      });
       group.addShape('text', {
         attrs: {
-          x: -35,
-          y: 4,
-          fill: '#333',
+          x: -70,
+          y: 0,
+          fill: '#fff',
           text: 'conversation_start',
           textBaseline: 'left',
           fontFamily: '"Open Sans", sans-serif',
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: 600
+        }
+      });
+      group.addShape('rect', {
+        attrs: {
+          x: -85,
+          y: -25,
+          fill: lightGreyBg,
+          width: 300,
+          height: 40
+        }
+      });
+      group.addShape('text', {
+        attrs: {
+          x: -70,
+          y: 0,
+          fill: '#fff',
+          text: 'conversation_start',
+          textBaseline: 'left',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 12,
+          fontWeight: 600
+        }
+      });
+      group.addShape('text', {
+        attrs: {
+          x: -60,
+          y: 57,
+          fill: '#333',
+          text: cfg.label,
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 12
         }
       });
     },
     options: {
-      ...deepMix({},startDefaultOptions,{icon: require('../assets/icons/flow/start.png')})
+      ...deepMix({},startDefaultOptions)
     },
     getShapeStyle(cfg) {
       cfg.size = [170, 50];
@@ -193,21 +261,50 @@ export default function(G6) {
   G6.registerNode('end-node-kr', {
     shapeType: 'rect',
     afterDraw(cfg, group) {
+      group.addShape('rect', {
+        attrs: {
+          x: -85,
+          y: -25,
+          fill: lightGreyBg,
+          width: 300,
+          height: 40
+        }
+      });
+      group.addShape('rect', {
+        attrs: {
+          x: -70,
+          y: 30,
+          fill: '#eee',
+          width: 270,
+          height: 40,
+          radius: 5
+        }
+      });
       group.addShape('text', {
         attrs: {
-          x: -35,
-          y: 4,
-          fill: '#333',
+          x: -70,
+          y: 0,
+          fill: '#fff',
           text: 'conversation_end',
           textBaseline: 'center',
           fontFamily: '"Open Sans", sans-serif',
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: 600
+        }
+      });
+      group.addShape('text', {
+        attrs: {
+          x: -60,
+          y: 57,
+          fill: '#333',
+          text: cfg.label,
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 12
         }
       });
     },
     options: {
-      ...deepMix({},startDefaultOptions,{icon: require('../assets/icons/flow/end.png')})
+      ...deepMix({},startDefaultOptions)
     },
     getShapeStyle(cfg) {
       cfg.size = [170, 50];
@@ -231,12 +328,46 @@ export default function(G6) {
 
   G6.registerNode('basic-state-kr', {
     shapeType: 'rect',
-    options: deepMix({},taskDefaultOptions,{
-      icon: require('../assets/icons/flow/task.png')
-    }),
+    options: deepMix({},taskDefaultOptions),
     afterDraw(cfg, group) {
+      group.addShape('rect', {
+        attrs: {
+          x: -85,
+          y: -25,
+          fill: lightGreyBg,
+          width: 300,
+          height: 40
+        }
+      });
+
+      // print text
+      const textLines = wordWrap(cfg.text, 38);
+      const line = ((textLines.match(/\n/g)) || []).length
+      group.addShape('rect', {
+        attrs: {
+          x: -70,
+          y: 30,
+          fill: '#eee',
+          width: 270,
+          height: 40 + (15 * (line)),
+          radius: 5
+        }
+      });
+      group.addShape('text', {
+        attrs: {
+          x: -60,
+          y: 45,
+          fill: '#333',
+          text: textLines,
+          textBaseline: 'top',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: 12
+        }
+      });
+
+
       if (cfg.type === 'buttons') {
-        let y = 40;
+        let y = 40 + (15 * (line + 2));
         // print buttons
         _.forEach(cfg.buttons, (button) => {
           let label = button.label;
@@ -244,29 +375,28 @@ export default function(G6) {
 
           group.addShape('rect', {
             attrs: {
-              x: -45,
+              x: -70,
               y,
               fill: white,
-              stroke: grey,
-              lineWidth: 1,
-              height: 50, 
-              width: 220,
-              radius: 10
+              stroke: lightGrey,
+              lineWidth: 0.5,
+              height: 45, 
+              width: 270
             }
           });
           group.addShape('text', {
             attrs: {
-              x: -30,
-              y: y + 30,
-              fill: '#333',
+              x: -55,
+              y: y + 27,
+              fill: blue,
               text: label,
               textBaseline: 'left',
               fontFamily: '"Open Sans", sans-serif',
               fontSize: 12,
-              fontWeight: 400
+              fontWeight: 600
             }
           });
-          y += 60
+          y += 45
         })
       }
 
@@ -275,13 +405,13 @@ export default function(G6) {
       if(buttonLabel) { buttonLabel = `${buttonLabel.slice(0,28)}${buttonLabel.length > 28 ? '...' : ''}` }
       group.addShape('text', {
         attrs: {
-          x: -40,
-          y: 4,
-          fill: '#333',
+          x: -70,
+          y: 0,
+          fill: '#fff',
           text: buttonLabel,
           textBaseline: 'left',
           fontFamily: '"Open Sans", sans-serif',
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: 600
         }
       });
@@ -293,11 +423,13 @@ export default function(G6) {
       ]
     },
     getShapeStyle(cfg) {
-      let nodeHeight = 200;
+      let nodeHeight = 175;
       const buttons = _.get(cfg, 'buttons', [])
-      // calculate height based on buttons
-      if(buttons.length > 2){
-        nodeHeight = nodeHeight + (65 * (buttons.length - 2))
+      const textLines = wordWrap(cfg.text, 38);
+      const line = ((textLines.match(/\n/g)) || []).length
+      // calculate height based on buttons and text length
+      if(buttons.length > 1){
+        nodeHeight = nodeHeight + (45 * (buttons.length - 1)) + (15 * line)
       }
 
       cfg.size = [300, nodeHeight];
