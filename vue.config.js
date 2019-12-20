@@ -1,6 +1,7 @@
 const merge = require('webpack-merge');
 module.exports = {
   // publicPath:'/wfd-vue/',
+  transpileDependencies: ['@antv/g6', '@antv/util'],
   productionSourceMap: false,
   configureWebpack: config => {
     if(process.env.NODE_ENV === 'production') {
